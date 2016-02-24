@@ -6,20 +6,14 @@ import java.util.ArrayList;
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-    	ArrayList arr = new ArrayList();
-    	Boolean cond = true;
-    	
-    	int i = 0;
-        while(cond) {
-        	arr.add(new Object());
-        	if(i%100000==0) {
-        		System.out.println("free memory: " + Runtime.getRuntime().freeMemory());
-        	}
-        	i++;
-        }
-    }
+public class App {
+	public static void main(String[] args) {
+		ArrayList<Object> array = new ArrayList<Object>();
+		Boolean condition = true;
+
+		while (condition) {
+			array.add(new Object());
+			System.out.println("free memory: " + Runtime.getRuntime().freeMemory());
+		}
+	}
 }
