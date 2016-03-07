@@ -1,5 +1,7 @@
 package pl.mbadziong.jvm;
 
 public interface TestStrategy {
-	void perform(SomeClass sc);
+	void testGet(SomeClass sc);
+    void testSet(SomeClass sc);
+    void testMethod(SomeClass sc);
 }

@@ -2,20 +2,26 @@
 
 mkdir log
 cd log
-mkdir refl
-mkdir refer
+mkdir refer_int
+mkdir refl_int
+mkdir refer_obj
+mkdir refl_obj
 cd ..
 
-for ((i=1000; i <= 2000; i = i + 1000)); do
+for ((i=1000; i <= 51000; i = i + 5000)); do
 	for((k=1; k <= 10; k++)); do
-		mvn exec:java -q -Dexec.args="$i refer" >> log/refer/attempt_$k_size_$i.log
-		mvn exec:java -q -Dexec.args="$i refl" >> log/refl/attempt_$k_size_$i.log
+		mvn exec:java -q -Dexec.args="$i refer int" >> log/refer_int/attempt_$k_size_$i.log
+		mvn exec:java -q -Dexec.args="$i refl int" >> log/refl_int/attempt_$k_size_$i.log
+        mvn exec:java -q -Dexec.args="$i refer obj" >> log/refer_obj/attempt_$k_size_$i.log
+        mvn exec:java -q -Dexec.args="$i refl obj" >> log/refl_obj/attempt_$k_size_$i.log
 	done
 
-	result_reference="$(python average.py log/refer/attempt_$k_size_$i.log)"
-	result_reflection="$(python average.py log/refl/attempt_$k_size_$i.log)"
+	result_reference_int="$(python average.py log/refer_int/attempt_$k_size_$i.log)"
+	result_reflection_int="$(python average.py log/refl_int/attempt_$k_size_$i.log)"
+	result_reference_obj="$(python average.py log/refer_obj/attempt_$k_size_$i.log)"
+    result_reflection_obj="$(python average.py log/refl_obj/attempt_$k_size_$i.log)"
 
-	echo $i $result_reference $result_reflection >> log/jvmTests.dat
+	echo $i $result_reference_int $result_reflection_int $result_reference_obj $result_reflection_obj >> log/jvmTests.dat
 
 	echo "$i done"
 done
