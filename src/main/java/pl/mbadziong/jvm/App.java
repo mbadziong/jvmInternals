@@ -46,8 +46,8 @@ public class App {
 		long startTime = System.currentTimeMillis();
 
 		for (long testNum = 0; testNum < attempts; testNum++) {
-			strategy.testGet(sc);
-            strategy.testSet(sc);
+			//strategy.testGet(sc);
+            //strategy.testSet(sc);
             strategy.testMethod(sc);
 		}
 
