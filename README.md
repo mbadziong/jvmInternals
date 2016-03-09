@@ -13,4 +13,5 @@ Parametryzacja testow prawie jest zautomatyzowana, niestety wybor geta/seta/meto
 Przykladowe wyniki testu sa w raporcie pdfowym, ktory wrzucilem do repo.
 
 Pozdrawiam i nie polecam
+
 Mateusz Badziong
