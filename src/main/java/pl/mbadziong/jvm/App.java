@@ -1,6 +1,8 @@
 package pl.mbadziong.jvm;
 
-import java.util.ArrayList;
+import pl.mbadziong.jvm.converter.JsonConverter;
+import pl.mbadziong.jvm.pojos.Address;
+import pl.mbadziong.jvm.pojos.Person;
 
 /**
  * Hello world!
@@ -8,12 +10,14 @@ import java.util.ArrayList;
  */
 public class App {
 	public static void main(String[] args) {
-		ArrayList<Object> array = new ArrayList<Object>();
-		Boolean condition = true;
 
-		while (condition) {
-			array.add(new Object());
-			System.out.println("free memory: " + Runtime.getRuntime().freeMemory());
-		}
-	}
+        Address address = new Address("Gdansk", "Wita Stwosza", "123A");
+        Person person = new Person("andrzej", "dupa", 12, address);
+        Class personClazz = person.getClass();
+
+        JsonConverter jsonConverter = new JsonConverter();
+
+        String json = jsonConverter.convert(person);
+        System.out.println(json);
+    }
 }

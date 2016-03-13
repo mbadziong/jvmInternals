@@ -1,38 +1,101 @@
 package pl.mbadziong.jvm;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import pl.mbadziong.jvm.converter.JsonConverter;
+import pl.mbadziong.jvm.pojos.Address;
+import pl.mbadziong.jvm.pojos.Person;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+import java.io.IOException;
+
+public class AppTest
+        extends TestCase {
+
+    private final Address address = new Address("Gdansk", "Wita Stwosza", "123A");
+    private final Person person = new Person("andrzej", "dupa", 12, address);
+
+    public AppTest(String testName) {
+        super(testName);
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
+    public static Test suite() {
+        return new TestSuite(AppTest.class);
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    public void testJsonIsNotNull() {
+        JsonConverter jsonConverter = new JsonConverter();
+        String json = jsonConverter.convert(person);
+
+        Assert.assertNotNull(json);
+    }
+
+    public void testMyOwnJsonAndJsonFromCustomLibraryAreEqualInLength() throws JsonProcessingException {
+        JsonConverter jsonConverter = new JsonConverter();
+        String myJson = jsonConverter.convert(person);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String customJson = mapper.writeValueAsString(person);
+
+        Assert.assertEquals(customJson.length(), myJson.length());
+    }
+
+    public void testIsPossibleToBuildPojoFromJson() throws IOException, JSONException {
+        JsonConverter jsonConverter = new JsonConverter();
+        String myJson = jsonConverter.convert(person);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String customJson = mapper.writeValueAsString(person);
+
+        Assert.assertNotNull(person);
+
+        JSONAssert.assertEquals(myJson, customJson, false);
+    }
+
+    public void testMyOwnJsonAndJsonFromCustomLibraryAreEqual() throws IOException, JSONException {
+        JsonConverter jsonConverter = new JsonConverter();
+        String myJson = jsonConverter.convert(person);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String customJson = mapper.writeValueAsString(person);
+
+        JSONAssert.assertEquals(myJson, customJson, JSONCompareMode.NON_EXTENSIBLE);
+    }
+
+    public void testTimeOfExecutionForMyConverterAndCustom() throws JsonProcessingException {
+        final long TEST_RUNS = 10000;
+
+        long startTime = System.currentTimeMillis();
+
+        JsonConverter jsonConverter = new JsonConverter();
+
+        for(int i = 0; i < TEST_RUNS; i++) {
+            String myJson = jsonConverter.convert(person);
+        }
+
+        long estimatedTime = System.currentTimeMillis() - startTime;
+
+        System.out.println("Time of execution for " + TEST_RUNS + " runs with my json converter: " + estimatedTime);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+
+        startTime = System.currentTimeMillis();
+
+        for(int i = 0; i < TEST_RUNS; i++) {
+            String customJson = mapper.writeValueAsString(person);
+        }
+
+        estimatedTime = System.currentTimeMillis() - startTime;
+
+        System.out.println("Time of execution for " + TEST_RUNS + " runs with custom json converter: " + estimatedTime);
+
+        Assert.assertTrue(true);
     }
 }
