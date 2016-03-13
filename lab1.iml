@@ -15,5 +15,10 @@
     <orderEntry type="library" name="Maven: org.functionaljava:functionaljava-java8:4.5" level="project" />
     <orderEntry type="library" name="Maven: org.functionaljava:functionaljava-quickcheck:4.5" level="project" />
     <orderEntry type="library" name="Maven: org.functionaljava:functionaljava-java-core:4.5" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.3" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.3" level="project" />
+    <orderEntry type="library" name="Maven: org.skyscreamer:jsonassert:1.3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20090211" level="project" />
   </component>
 </module>
