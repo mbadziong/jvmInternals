@@ -19,7 +19,10 @@ public class AppTest
         extends TestCase {
 
     private final Address address = new Address("Gdansk", "Wita Stwosza", "123A");
-    private final Person person = new Person("andrzej", "dupa", 12, address);
+    private final Person person = new Person("Andrzej", "Duda", 12, address);
+
+    private JsonConverter jsonConverter = new JsonConverter();
+    private ObjectMapper mapper = new ObjectMapper();
 
     public AppTest(String testName) {
         super(testName);
@@ -30,27 +33,23 @@ public class AppTest
     }
 
     public void testJsonIsNotNull() {
-        JsonConverter jsonConverter = new JsonConverter();
+
         String json = jsonConverter.convert(person);
 
         Assert.assertNotNull(json);
     }
 
     public void testMyOwnJsonAndJsonFromCustomLibraryAreEqualInLength() throws JsonProcessingException {
-        JsonConverter jsonConverter = new JsonConverter();
         String myJson = jsonConverter.convert(person);
 
-        ObjectMapper mapper = new ObjectMapper();
         String customJson = mapper.writeValueAsString(person);
 
         Assert.assertEquals(customJson.length(), myJson.length());
     }
 
     public void testIsPossibleToBuildPojoFromJson() throws IOException, JSONException {
-        JsonConverter jsonConverter = new JsonConverter();
         String myJson = jsonConverter.convert(person);
 
-        ObjectMapper mapper = new ObjectMapper();
         String customJson = mapper.writeValueAsString(person);
 
         Assert.assertNotNull(person);
@@ -59,10 +58,8 @@ public class AppTest
     }
 
     public void testMyOwnJsonAndJsonFromCustomLibraryAreEqual() throws IOException, JSONException {
-        JsonConverter jsonConverter = new JsonConverter();
         String myJson = jsonConverter.convert(person);
 
-        ObjectMapper mapper = new ObjectMapper();
         String customJson = mapper.writeValueAsString(person);
 
         JSONAssert.assertEquals(myJson, customJson, JSONCompareMode.NON_EXTENSIBLE);
@@ -73,23 +70,18 @@ public class AppTest
 
         long startTime = System.currentTimeMillis();
 
-        JsonConverter jsonConverter = new JsonConverter();
-
         for(int i = 0; i < TEST_RUNS; i++) {
-            String myJson = jsonConverter.convert(person);
+            jsonConverter.convert(person);
         }
 
         long estimatedTime = System.currentTimeMillis() - startTime;
 
         System.out.println("Time of execution for " + TEST_RUNS + " runs with my json converter: " + estimatedTime);
 
-        ObjectMapper mapper = new ObjectMapper();
-
-
         startTime = System.currentTimeMillis();
 
         for(int i = 0; i < TEST_RUNS; i++) {
-            String customJson = mapper.writeValueAsString(person);
+            mapper.writeValueAsString(person);
         }
 
         estimatedTime = System.currentTimeMillis() - startTime;

@@ -5,7 +5,7 @@ import pl.mbadziong.jvm.converter.JsonConverter;
 /**
  * Created by matti on 3/12/16.
  */
-public class ObjectType implements IJsonable {
+public class ObjectType implements IJsonConvertable {
     @Override
     public Object toJsonString(Object obj) {
         return new JsonConverter().convert(obj);

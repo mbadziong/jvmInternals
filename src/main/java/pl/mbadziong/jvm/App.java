@@ -12,8 +12,7 @@ public class App {
 	public static void main(String[] args) {
 
         Address address = new Address("Gdansk", "Wita Stwosza", "123A");
-        Person person = new Person("andrzej", "dupa", 12, address);
-        Class personClazz = person.getClass();
+        Person person = new Person("Andrzej", "Duda", 12, address);
 
         JsonConverter jsonConverter = new JsonConverter();
 

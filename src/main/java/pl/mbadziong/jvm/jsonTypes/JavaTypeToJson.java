@@ -8,7 +8,7 @@ public class JavaTypeToJson {
 
     public Object buildJsonForType(Object obj) {
         Class clazz = obj.getClass();
-        IJsonable strategy = null;
+        IJsonConvertable strategy = null;
 
         if (TypeChecker.isWrapperType(obj.getClass())) {
             if(TypeChecker.isStringType(clazz)) {

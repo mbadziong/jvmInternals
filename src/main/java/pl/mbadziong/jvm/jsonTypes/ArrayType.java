@@ -6,7 +6,7 @@ import java.lang.reflect.Array;
  * Created by matti on 3/12/16.
  * source: http://stackoverflow.com/questions/5606338/cast-primitive-type-array-into-object-array-in-java
  */
-public class ArrayType implements IJsonable {
+public class ArrayType implements IJsonConvertable {
     @Override
     public Object toJsonString(Object obj) {
         final String ArrayPrefix = "[";
@@ -15,7 +15,7 @@ public class ArrayType implements IJsonable {
 
         boolean firstIteration = true;
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(ArrayPrefix);
 
         for (Object item : this.getArray(obj)) {
@@ -34,9 +34,9 @@ public class ArrayType implements IJsonable {
     }
 
     private Object[] getArray(Object val) {
-        int arrlength = Array.getLength(val);
-        Object[] outputArray = new Object[arrlength];
-        for (int i = 0; i < arrlength; ++i) {
+        int arrayLength = Array.getLength(val);
+        Object[] outputArray = new Object[arrayLength];
+        for (int i = 0; i < arrayLength; ++i) {
             outputArray[i] = Array.get(val, i);
         }
 
