@@ -1,11 +1,11 @@
 # jvmInternals
 
-<h2>Konwerter POJO -> JSON</h2>
+<h2>SimpleDateFormat</h2>
 
-<h3>Ograniczenia:</h3>
+<h3>Dzialanie</h3>
 <li>
-<ul>1. konwerter bierze pod uwage wylacznie publiczne pola klasy.</ul>
-<ul>2. konwerter bierze pod uwage wylacznie gettery, ktorych prefix to get lub is oraz nie sa prywatne (oraz statyczne).</ul>
-<ul>3. dziala dla obiektow zlozonych oraz tablic.</ul>
+<ul>1. mvn install</ul>
+<ul>2. test o nazwie testSimpleDateFormat powinien failowac.</ul>
+<ul>3. test o nazwie testMySimpleDateFormat zawierajacy poprawke klasy SimpleDateFormat powinien passowac.</ul>
 </li>
 
