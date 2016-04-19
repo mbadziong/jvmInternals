@@ -16,11 +16,11 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ClassLoaderWithAgentTest {
     private ArrayList<Long> results = new ArrayList<>();
+    private App app = new App();
 
     @Test
     public void selectedAgentTest() {
-        App app = new App();
-        for(int i = 1; i <= 10000; i++) {
+        for (int i = 1; i <= 10000; i++) {
             Class c = null;
             try {
                 c = Class.forName("com.example.jvmint.generated.Person" + i);
@@ -32,15 +32,7 @@ public class ClassLoaderWithAgentTest {
                 long elapsedTime = System.nanoTime() - launchTime;
                 results.add(elapsedTime);
 
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -54,7 +46,7 @@ public class ClassLoaderWithAgentTest {
     public void generateClasses() {
         ClassGenerator cg = new ClassGenerator();
 
-        for(int classNumber = 1; classNumber <= 10000; classNumber++) {
+        for (int classNumber = 1; classNumber <= 10000; classNumber++) {
             cg.generateClass("Person" + classNumber);
         }
 
@@ -63,8 +55,8 @@ public class ClassLoaderWithAgentTest {
 
     private long calcAverage(ArrayList<Long> results) {
         long sum = 0;
-        for(Long result : results) {
-            sum += result.longValue();
+        for (Long result : results) {
+            sum += result;
         }
 
         return sum / results.size();
